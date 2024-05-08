@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SPH Fluid Simulation", "SPH Fluid Simulation.vcxproj", "{E92598C4-FA29-4724-96EC-4BB3320EDADB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Debug|Win32.Build.0 = Debug|Win32
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Debug|x64.ActiveCfg = Debug|x64
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Debug|x64.Build.0 = Debug|x64
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Debug|x86.ActiveCfg = Debug|Win32
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Debug|x86.Build.0 = Debug|Win32
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Release|Win32.ActiveCfg = Release|Win32
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Release|Win32.Build.0 = Release|Win32
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Release|x64.ActiveCfg = Release|x64
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Release|x64.Build.0 = Release|x64
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Release|x86.ActiveCfg = Release|Win32
+		{E92598C4-FA29-4724-96EC-4BB3320EDADB}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {150052D1-4CA5-4870-A9D8-A794FE1C6E1D}
+	EndGlobalSection
+EndGlobal
