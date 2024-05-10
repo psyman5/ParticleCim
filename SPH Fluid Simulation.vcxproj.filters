@@ -24,12 +24,6 @@
     <ClCompile Include="vec2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="updateSim.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="verletIntegrator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="addVectors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -40,9 +34,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="multByScalar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="doCollision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -63,15 +54,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="multByScalar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="verletIntegrator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="updateSim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="doCollision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

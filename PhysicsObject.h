@@ -43,5 +43,7 @@ public:
 	void doCollisions(std::vector<PhysicsObject>& objectVector, float coeffElast);
 
 	void updateSubstep(float dt, int numSubsteps);
+
+
 };
 	

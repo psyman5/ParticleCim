@@ -97,22 +97,26 @@ void PhysicsObject::applyConstraints(sf::Vector2u winSize , float radius) {
 		if (currentPosition.getX() - radius < 0) {
 			Vec2D newPos{0 + radius, currentPosition.getY()};
 			updateCurrentPosition(newPos);
+			updateLastPos(newPos);
 		}
 		else if (currentPosition.getX() + radius > winSize.x) {
 			Vec2D newPos{ static_cast<float>(winSize.x) - radius, currentPosition.getY()};
 			updateCurrentPosition(newPos);
+			updateLastPos(newPos);
 		};
 	};
 	if ((currentPosition.getY() - radius < 0) or (currentPosition.getY() + radius > winSize.y)) {
 		if (currentPosition.getY() - radius < 0) {
 			Vec2D newPos{ currentPosition.getX(), 0 + radius };
 			updateCurrentPosition(newPos);
+			
 			return;
 
 		}
 		else if (currentPosition.getY() + radius > winSize.y) {
 			Vec2D newPos{ currentPosition.getX(), static_cast<float>(winSize.y) - radius };
 			updateCurrentPosition(newPos);
+			
 			return;
 		};
 	return;
@@ -123,7 +127,7 @@ PhysicsObject* PhysicsObject::getPointer() {
 	return this;
 };
 
-void PhysicsObject::doCollisions(std::vector<PhysicsObject>& objectVector, float coeffElast) {
+void PhysicsObject::doCollisions(std::vector<PhysicsObject>& objectVector, float coeffElast) { // TODO: Fix disappearing balls (check for valid positions before adjusting)
 
 	PhysicsObject* physObjPointer{ getPointer() };
 

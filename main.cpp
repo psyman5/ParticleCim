@@ -2,7 +2,6 @@
 #include "PhysicsObject.h"
 #include <vector>
 #include <random>
-#include "updateSim.h"
 #include <iostream>
 #include <cmath>
 #include "subVectors.h"
@@ -15,12 +14,12 @@ int main()
     std::srand(9);
 
     int objectCount{200};
-    float CIRCLE_RADIUS{7};
+    float CIRCLE_RADIUS{50};
     float dt{ 0.01 };
-    float grav{ 9.81 };
+    float grav{ 32.2 };
     Vec2D gravity{ 0, grav/dt };
-    const float coeffElast{0.75};
-    int numSubsteps{5};
+    const float coeffElast{ 0.75 };
+    int numSubsteps{8};
 /*
     Vec2D pos1{ 300, 360 };
     Vec2D lastPos1{ pos1.getX() + 1, pos1.getY() };
@@ -54,9 +53,9 @@ int main()
         Vec2D lastPos{ pos.getX(), pos.getY()};
         Vec2D acceleration{0, 0};
 
-        //PhysicsObject obj{ pos, lastPos, acceleration , static_cast<float>(std::rand() % 20)};
+        PhysicsObject obj{ pos, lastPos, acceleration , static_cast<float>(std::rand() % 20)};
 
-        PhysicsObject obj{ pos, lastPos, acceleration , 5 };
+        //PhysicsObject obj{ pos, lastPos, acceleration , 5 };
         
         objectVector.push_back(obj);    
     };
@@ -66,8 +65,8 @@ int main()
     for (int i = 0; i < objectCount; i++) {
         sf::CircleShape newCircle{ objectVector[i].getRadius(), 45 };
         newCircle.setOrigin(objectVector[i].getRadius(), objectVector[i].getRadius());
-        //newCircle.setFillColor(sf::Color::Color(floor(std::rand() % 255), floor(std::rand() % 255), floor(std::rand() % 255)));
-        newCircle.setFillColor(sf::Color::White);
+        newCircle.setFillColor(sf::Color::Color(floor(std::rand() % 255), floor(std::rand() % 255), floor(std::rand() % 255)));
+        //newCircle.setFillColor(sf::Color::Black);
         sf::Vector2f posVec{ objectVector[i].getCurrentPosition().getX(), objectVector[i].getCurrentPosition().getY() };
 
         newCircle.setPosition(posVec);
@@ -95,16 +94,17 @@ int main()
         }
 
         // clear the window with black color
-        window.clear(sf::Color::Color(26, 176, 184));
+        //window.clear(sf::Color::Color(26, 176, 184));
 
-        //window.clear(sf::Color::White);
+        window.clear(sf::Color::White);
 
         for (int i = 0; i < objectVector.size(); i++) {
             PhysicsObject& physObj{ objectVector[i] };
 
-            physObj.accelerate(gravity);
+            //physObj.accelerate(gravity);
 
             for (int substep = 0; substep < numSubsteps; ++substep) {
+                physObj.accelerate(gravity);
                 physObj.updateSubstep(dt / numSubsteps, 1);
                 physObj.applyConstraints(window.getSize(), physObj.getRadius());
                 physObj.doCollisions(objectVector, coeffElast);
@@ -113,14 +113,14 @@ int main()
 
         for (int i = 0 ; i < shapeVector.size(); i++) {
 
-            Vec2D velocityObj{ subVectors(objectVector[i].getCurrentPosition(), objectVector[i].getLastPos()) };
+            //Vec2D velocityObj{ subVectors(objectVector[i].getCurrentPosition(), objectVector[i].getLastPos()) };
 
-            int velRel{ static_cast<int>(floor(velocityObj.magnitude() * velocityObj.magnitude())) };
+            //int velRel{ static_cast<int>(floor(velocityObj.magnitude() * velocityObj.magnitude())) };
 
-            std::cout << velRel << std::endl;
+            //std::cout << velRel << std::endl;
 
             shapeVector[i].setPosition(objectVector[i].getCurrentPosition().getX(), objectVector[i].getCurrentPosition().getY());
-            shapeVector[i].setFillColor(sf::Color::Color(20, velRel % 255, 0));
+            //shapeVector[i].setFillColor(sf::Color::Color(velRel % 255, 200, 0));
             window.draw(shapeVector[i]);
         };
 
