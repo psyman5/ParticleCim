@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="addVectors.h" />
+    <ClInclude Include="doCollision.h" />
     <ClInclude Include="dotProd2D.h" />
     <ClInclude Include="updateSim.h" />
     <ClInclude Include="verletIntegrator.h" />

@@ -19,6 +19,6 @@ float Vec2D::getY() const {
 };
 
 float Vec2D::magnitude() const {
-	return sqrt( ( x * x ) + ( y * y) );
+	return (x * x) + (y * y);
 };
 	

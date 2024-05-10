@@ -1,5 +1,6 @@
 #pragma once
 #include "Vec2D.h"
+#include "SFML/Graphics.hpp"
 
 #ifndef PHYSICS_OBJECT
 #define PHYSICS_OBJECT
@@ -11,10 +12,11 @@ private:
 	Vec2D currentPosition;
 	Vec2D lastPos;
 	Vec2D acceleration;
+	float radius;
 
 public:
 
-	PhysicsObject(Vec2D currentPosition, Vec2D lastPos, Vec2D acceleration) : currentPosition{ currentPosition }, lastPos{ lastPos }, acceleration{ acceleration } {};
+	PhysicsObject(Vec2D currentPosition, Vec2D lastPos, Vec2D acceleration, float radius) : currentPosition{ currentPosition }, lastPos{ lastPos }, acceleration{ acceleration }, radius{ radius } {};
 
 	void updateCurrentPosition(Vec2D newPosition);
 
@@ -28,8 +30,18 @@ public:
 
 	Vec2D getAcceleration() const;
 
+	float getRadius() const;
+
 	void accelerate(Vec2D& accelerationVector);
 
+	void update(float dt);
 
+	void applyConstraints(sf::Vector2u winSize, float radius);
+
+	PhysicsObject* getPointer();
+
+	void doCollisions(std::vector<PhysicsObject>& objectVector, float coeffElast);
+
+	void updateSubstep(float dt, int numSubsteps);
 };
-
+	

@@ -71,5 +71,8 @@
     <ClInclude Include="updateSim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="doCollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
