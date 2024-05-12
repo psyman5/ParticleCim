@@ -52,46 +52,14 @@ void PhysicsObject::update(float dt) {
 
 	updateCurrentPosition(addVectors(addVectors(currentPos, velocityVector), accelVector));
 
-	Vec2D blank{ 0, 0 };
+	//Vec2D blank{ 0, 0 };
 
-	updateAcceleration( blank );
+	//updateAcceleration( blank );
 };
 
 void PhysicsObject::applyConstraints(sf::Vector2u winSize , float radius) {
 	Vec2D velocityVector{ subVectors(getCurrentPosition(), getLastPos()) };
 	Vec2D currentPosition{ getCurrentPosition() };
-
-	/*if ((currentPosition.getX() - radius < 0) or (currentPosition.getX() + radius > winSize.x)) {
-		if (currentPosition.getX() - radius < 0) {
-			Vec2D newPos{0 + radius, currentPosition.getY()};
-			updateCurrentPosition(newPos);
-			updateLastPos(addVectors(getCurrentPosition(), velocityVector) );
-
-		}
-		else if (currentPosition.getX() + radius > winSize.x) {
-			Vec2D newPos{ static_cast<float>(winSize.x) - radius, currentPosition.getY()};
-			updateCurrentPosition(newPos);
-			updateLastPos(addVectors(getCurrentPosition(), velocityVector));
-		};
-	};
-	if ((currentPosition.getY() - radius < 0) or (currentPosition.getY() + radius > winSize.y)) {
-		if (currentPosition.getY() - radius < 0) {
-			Vec2D newPos{ currentPosition.getX(), 0 + radius };
-			updateCurrentPosition(newPos);
-			updateLastPos(addVectors(getCurrentPosition(), velocityVector));
-
-			return;
-
-		}
-		else if (currentPosition.getY() + radius > winSize.y) {
-			Vec2D newPos{ currentPosition.getX(), static_cast<float>(winSize.y) - radius };
-			updateCurrentPosition(newPos);
-			updateLastPos(addVectors(getCurrentPosition(), velocityVector));
-		};
-
-	return;
-
-	}; */
 
 	if ((currentPosition.getX() - radius < 0) or (currentPosition.getX() + radius > winSize.x)) {
 		if (currentPosition.getX() - radius < 0) {
@@ -127,26 +95,19 @@ PhysicsObject* PhysicsObject::getPointer() {
 	return this;
 };
 
-void PhysicsObject::doCollisions(std::vector<PhysicsObject>& objectVector, float coeffElast) { // TODO: Fix disappearing balls (check for valid positions before adjusting)
-
+void PhysicsObject::doCollisions(std::vector<PhysicsObject>& objectVector, float coeffElast, sf::Vector2u winSize) {
 	PhysicsObject* physObjPointer{ getPointer() };
 
 	for (int j{ 0 }; j < objectVector.size(); j++) {
-
 		PhysicsObject& collisionPartner{ objectVector[j] };
-
 		PhysicsObject* collisionPartnerPointer{ &collisionPartner };
 
 		if (collisionPartnerPointer != physObjPointer) {
-
 			Vec2D distVector{ subVectors(getCurrentPosition(), collisionPartner.getCurrentPosition()) };
-
 			float distanceMag{ distVector.magnitude() };
-
 			float minimumDistance{ getRadius() + collisionPartner.getRadius() };
 
 			if (distanceMag < minimumDistance * minimumDistance) {
-
 				const float dist{ sqrt(distanceMag) };
 				Vec2D normalizedDistanceVector{ multByScalar(distVector, 1 / dist) };
 				const float mr1{ getRadius() / (getRadius() + collisionPartner.getRadius()) };
@@ -154,12 +115,23 @@ void PhysicsObject::doCollisions(std::vector<PhysicsObject>& objectVector, float
 				const float del{ 0.5f * coeffElast * (minimumDistance - dist) };
 				Vec2D separationVector{ multByScalar(normalizedDistanceVector, del) };
 
-				updateCurrentPosition(addVectors(getCurrentPosition(), multByScalar(separationVector, mr2)));
-				collisionPartner.updateCurrentPosition(subVectors(collisionPartner.getCurrentPosition(), multByScalar(separationVector, mr1)));
-			};
-		};
-	};
-};
+				// Check if the current ball is in a corner
+				bool isCurrentBallInCorner = isInCorner(getCurrentPosition(), getRadius(), winSize);
+
+				// Check if the collision partner is in a corner
+				bool isPartnerInCorner = isInCorner(collisionPartner.getCurrentPosition(), collisionPartner.getRadius(), winSize);
+
+				if (!isCurrentBallInCorner) {
+					updateCurrentPosition(addVectors(getCurrentPosition(), multByScalar(separationVector, mr2)));
+				}
+
+				if (!isPartnerInCorner) {
+					collisionPartner.updateCurrentPosition(subVectors(collisionPartner.getCurrentPosition(), multByScalar(separationVector, mr1)));
+				}
+			}
+		}
+	}
+}
 
 void PhysicsObject::updateSubstep(float dt, int numSubsteps) {
 	float subStepDt = dt / numSubsteps;
@@ -176,3 +148,13 @@ void PhysicsObject::updateSubstep(float dt, int numSubsteps) {
 		updateCurrentPosition(addVectors(addVectors(currentPos, velocityVector), accelVector));
 	}
 }
+
+bool PhysicsObject::isInCorner(Vec2D position, float radius, sf::Vector2u windowSize) {
+	bool isTopLeftCorner = (position.getX() - radius <= 0) && (position.getY() - radius <= 0);
+	bool isTopRightCorner = (position.getX() + radius >= windowSize.x) && (position.getY() - radius <= 0);
+	bool isBottomLeftCorner = (position.getX() - radius <= 0) && (position.getY() + radius >= windowSize.y);
+	bool isBottomRightCorner = (position.getX() + radius >= windowSize.x) && (position.getY() + radius >= windowSize.y);
+
+	return isTopLeftCorner || isTopRightCorner || isBottomLeftCorner || isBottomRightCorner;
+}
+

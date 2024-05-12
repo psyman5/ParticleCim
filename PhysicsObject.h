@@ -40,9 +40,12 @@ public:
 
 	PhysicsObject* getPointer();
 
-	void doCollisions(std::vector<PhysicsObject>& objectVector, float coeffElast);
+	void doCollisions(std::vector<PhysicsObject>& objectVector, float coeffElast, sf::Vector2u winSize);
 
 	void updateSubstep(float dt, int numSubsteps);
+
+	bool isInCorner(Vec2D position, float radius, sf::Vector2u windowSize);
+
 
 
 };
