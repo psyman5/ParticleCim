@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="addVectors.cpp" />
     <ClCompile Include="dotProd2D.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="HashGrid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="multByScalar.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
@@ -30,6 +32,8 @@
   <ItemGroup>
     <ClInclude Include="addVectors.h" />
     <ClInclude Include="dotProd2D.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="HashGrid.h" />
     <ClInclude Include="multByScalar.h" />
     <ClInclude Include="subVectors.h" />
     <ClInclude Include="PhysicsObject.h" />

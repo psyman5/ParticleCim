@@ -13,15 +13,16 @@ int main()
     //////////////////////////////////////////////////////////////
     std::srand(9);
 
-    int objectCount{500};
+    int objectCount{200};
     const float CIRCLE_RADIUS{50};
     const double dt{ 0.001 };
     const float grav{ 32.2 };
-    Vec2D gravity{ grav / dt, grav/dt };
+    Vec2D gravity{ 0, grav/dt };
     const float coeffElast{ 0.01 };
     int numSubsteps{10};
+    float fps{ 165 };
 
-    const int WINDOW_START[2] { 400,720};
+    const int WINDOW_START[2] { 50,720};
     //////////////////////////////////////////////////////////////
 
 
@@ -41,9 +42,9 @@ int main()
         Vec2D lastPos{ pos.getX(), pos.getY()};
         Vec2D acceleration{0, 0};
 
-        PhysicsObject obj{ pos, lastPos, acceleration , static_cast<float>(std::rand() % 10)};
+        //PhysicsObject obj{ pos, lastPos, acceleration , static_cast<float>(std::rand() % 10)};
 
-        //PhysicsObject obj{ pos, lastPos, acceleration , 5 };
+        PhysicsObject obj{ pos, lastPos, acceleration , 5 };
         
         objectVector.push_back(obj);    
     };
@@ -51,10 +52,10 @@ int main()
     std::vector<sf::CircleShape> shapeVector{};
 
     for (int i = 0; i < objectCount; i++) {
-        sf::CircleShape newCircle{ objectVector[i].getRadius(), 100 };
+        sf::CircleShape newCircle{ objectVector[i].getRadius(), 30 };
         newCircle.setOrigin(objectVector[i].getRadius(), objectVector[i].getRadius());
-        //newCircle.setFillColor(sf::Color::Color(floor(std::rand() % 255), floor(std::rand() % 255), floor(std::rand() % 255)));
-        newCircle.setFillColor(sf::Color::White);
+        newCircle.setFillColor(sf::Color::Color(floor(std::rand() % 255), floor(std::rand() % 255), floor(std::rand() % 255)));
+        //newCircle.setFillColor(sf::Color::White);
         sf::Vector2f posVec{ objectVector[i].getCurrentPosition().getX(), objectVector[i].getCurrentPosition().getY() };
 
         newCircle.setPosition(posVec);
@@ -67,7 +68,7 @@ int main()
     //////////////////////////////////////////////////////////////
     // create the window
     sf::RenderWindow window(sf::VideoMode(WINDOW_START[0], WINDOW_START[1]), "My window");
-    //window.setFramerateLimit(30);
+    window.setFramerateLimit(fps);
     sf::Clock clock;
 
     // run the program as long as the window is open
